@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: ./configure
+    # - name: update-submodules
+    #   run: git submodule update --init --recursive
+    # - name: cd
+    #   run: mkdir build && cd build
+    - name: Generating build folder
+      run: cmake -B build -S .
+    - name: build
+      run: cd build && make
